@@ -1,4 +1,9 @@
 class Config:
+
+    # Graph parameters
+
+    customer_valid_attribute_names = ['location', 'delivery']
+    store_valid_attribute_names = ['location', 'waiting_time']
     
     # Simulation parameters
     travel_time_method = 'location'
