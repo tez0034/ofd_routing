@@ -7,11 +7,13 @@ class Customer(Node):
 
     def __init__(self, graph, name, **kwargs):
         super().__init__(graph, name, **kwargs)
+        self.orders = None
     
     def __setattr__(self, attr_name, attr_value):
-        if attr_name not in self.valid_attribute_names:
-            raise ValueError(f'Attribute name {attr_name} is invalid for Store object')
-        return super().__setattr__(attr_name, attr_value)
+        object.__setattr__(self, attr_name, attr_value)
+        if attr_name in self.valid_attribute_names:
+            self.set_node_attribute_in_graph(attr_name, attr_value)
+        
 
 
     
