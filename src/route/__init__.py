@@ -1,6 +1,7 @@
 from config import Config
 from env.store import Store
 from env.customer import Customer
+import warnings
 
 class Route:
 
@@ -16,10 +17,12 @@ class Route:
         self.config = config
         self.node_sequence = node_sequence
         self.courier_state = courier_state
-        self.vald = self.is_valid()
 
+        self.valid = self.is_valid()
         if not self.valid:
-            raise Warning('Route is invalid, calculate_cost method is disabled')
+            warnings.warn('Route is invalid, calculate_cost method is disabled')
+        
+        self.process_route()
 
     def process_route(self):
         self.route_details = [{'node': self.node_sequence[0],
@@ -57,8 +60,17 @@ class Route:
                 continue
             if isinstance(node, Customer):
                 if (not any ([order.collected for order in node.orders])) and \
-                    (set(self.node_sequence[:i]).intersection([order.store for order in node.orders]))==0:
+                    (len(set(self.node_sequence[:i]).intersection([order.store for order in node.orders]))==0):
                     # First condition: driver does not have any orders from customer initially
                     # Second condition: driver's route does not include stores from any of the customer's orders
                     return False
         return True
+    
+    def get_next_node(self, time):
+        # note: if the time given is exactly the arrival time for a particular node, the
+        # next node will be returned
+        time_list = [d['time'] for d in self.route_details]
+        idx = list(map(lambda i: i > time, time_list)).index(True) \
+                if max(time_list)>time else (len(time_list)-1)
+        return self.route_details[idx]
+        

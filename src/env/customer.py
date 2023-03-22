@@ -7,7 +7,7 @@ class Customer(Node):
 
     def __init__(self, graph, name, **kwargs):
         super().__init__(graph, name, **kwargs)
-        self.orders = None
+        self.orders = []
     
     def __setattr__(self, attr_name, attr_value):
         object.__setattr__(self, attr_name, attr_value)
