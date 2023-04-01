@@ -10,6 +10,8 @@ class Config:
     min_travel_time = 5 # (min)
     vehicle_speed = 400 #(m/min) - cyclist
     store_wait_time = 5 # (min)
+    random_init_n_couriers = 30
+    n_orders_per_courier_per_min = 1/20
 
 
     # For random map initiatization
@@ -17,6 +19,7 @@ class Config:
     random_init_n_nodes = 500
     map_size = [10000, 10000] # (m)
     max_edge_travel_time = 10 #(min)
+
 
     # Cost function parameters
     late_penalty_constant = 1e3

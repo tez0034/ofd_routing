@@ -1,8 +1,10 @@
 from config import Config
+from env.store import Store
+from env.customer import Customer
 
 class Order:
 
-    def __init__(self, customer, store, deadline, creation_time, config=None):
+    def __init__(self, customer:Customer, store:Store, deadline, creation_time, config=None):
 
         if config is None:
             config = Config()
@@ -12,6 +14,7 @@ class Order:
         self.store = store
         self.deadline = deadline
         self.creation_time = creation_time
+        self.ready_time = creation_time + self.store.wait_time
         self.collected = False
         self.completed = False
         self.courier = None

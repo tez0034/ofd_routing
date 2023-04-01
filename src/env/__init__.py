@@ -108,7 +108,7 @@ class Environment:
         return valid_nodes
     
     def extract_subgraph_in_proximity(self, location, max_distance=5000, 
-                                      name='vehicle', vehicle_speed=None, insert_node=True):
+                                      name='courier', vehicle_speed=None, insert_node=True):
         if vehicle_speed is None:
             vehicle_speed = self.config.vehicle_speed
         valid_nodes = self.get_nodes_near_location(location, max_distance=max_distance)
